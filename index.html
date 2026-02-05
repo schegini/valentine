@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Valentine?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cream: #faf7f2;
-            --sepia: #e8dcc8;
-            --dark-brown: #3d3228;
-            --soft-red: #c97979;
-            --gold: #d4af37;
+            --dark: #0a0a0f;
+            --dark-surface: #141419;
+            --dark-elevated: #1c1c24;
+            --accent-pink: #ff6b9d;
+            --accent-purple: #c965ff;
+            --accent-blue: #4d9fff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --gradient-primary: linear-gradient(135deg, #ff6b9d 0%, #c965ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #4d9fff 0%, #c965ff 100%);
         }
 
         * {
@@ -21,51 +26,61 @@
         }
 
         body {
-            font-family: 'Crimson Pro', serif;
-            background: var(--cream);
-            color: var(--dark-brown);
+            font-family: 'DM Sans', sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
             overflow-x: hidden;
         }
 
-        /* Decorative Background */
+        /* Animated Background */
         .bg-texture {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--dark-brown) 2px, var(--dark-brown) 4px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--dark-brown) 2px, var(--dark-brown) 4px);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(201, 101, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(77, 159, 255, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Floating Hearts Animation */
         .floating-heart {
             position: fixed;
-            font-size: 20px;
-            color: var(--soft-red);
+            font-size: 24px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             opacity: 0;
             pointer-events: none;
             z-index: 2;
             animation: float-up 8s infinite ease-in;
+            filter: blur(0.5px);
         }
 
         @keyframes float-up {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(1);
                 opacity: 0;
             }
             10% {
-                opacity: 0.3;
+                opacity: 0.6;
             }
             90% {
-                opacity: 0.3;
+                opacity: 0.6;
             }
             100% {
-                transform: translateY(-100vh) rotate(360deg);
+                transform: translateY(-100vh) rotate(360deg) scale(1.5);
                 opacity: 0;
             }
         }
@@ -80,14 +95,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--sepia) 0%, var(--cream) 100%);
+            background: var(--dark);
             z-index: 100;
             transition: opacity 1s ease, transform 1s ease;
         }
 
         #landing-page.hide {
             opacity: 0;
-            transform: scale(1.1);
+            transform: scale(1.05);
             pointer-events: none;
         }
 
@@ -95,11 +110,26 @@
             text-align: center;
             max-width: 600px;
             padding: 60px 40px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 3px solid var(--gold);
-            border-radius: 2px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: rgba(28, 28, 36, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(255, 107, 157, 0.1);
             animation: fade-in 1.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
         }
 
         @keyframes fade-in {
@@ -114,19 +144,23 @@
         }
 
         .landing-content h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 4rem;
-            font-weight: 300;
-            color: var(--dark-brown);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 30px;
-            letter-spacing: 2px;
+            letter-spacing: -1px;
         }
 
         .landing-content p {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 40px;
-            color: var(--dark-brown);
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
         .button-group {
@@ -136,34 +170,51 @@
         }
 
         .valentine-btn {
-            padding: 15px 50px;
-            font-family: 'Crimson Pro', serif;
-            font-size: 1.3rem;
+            padding: 16px 48px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
             font-weight: 600;
-            border: 2px solid var(--dark-brown);
+            border: 2px solid transparent;
             background: transparent;
-            color: var(--dark-brown);
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valentine-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .valentine-btn.yes {
-            background: var(--soft-red);
-            border-color: var(--soft-red);
-            color: white;
+            background: var(--gradient-primary);
+            box-shadow: 0 8px 24px rgba(255, 107, 157, 0.4);
         }
 
         .valentine-btn.yes:hover {
-            background: #b56868;
-            border-color: #b56868;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(201, 121, 121, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 107, 157, 0.5);
         }
 
-        .valentine-btn.no:hover {
-            transform: scale(0.95);
+        .valentine-btn.no {
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .valentine-btn.no:hover::before {
+            opacity: 0.1;
         }
 
         /* Main Content */
@@ -183,17 +234,33 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 100px 20px 60px;
-            background: linear-gradient(to bottom, rgba(232, 220, 200, 0.5), transparent);
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.3) 0%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
         }
 
         .header h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 5rem;
-            font-weight: 300;
-            color: var(--dark-brown);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 20px;
-            letter-spacing: 3px;
+            letter-spacing: -2px;
             animation: slide-down 1s ease;
         }
 
@@ -209,10 +276,10 @@
         }
 
         .header p {
-            font-size: 1.5rem;
-            color: var(--soft-red);
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         /* Timeline Container */
@@ -230,14 +297,19 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(255, 107, 157, 0.3), 
+                rgba(201, 101, 255, 0.3),
+                transparent
+            );
             transform: translateX(-50%);
         }
 
         /* Moment Card */
         .moment {
             display: flex;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
             position: relative;
             opacity: 0;
             animation: fade-in-moment 0.8s ease forwards;
@@ -261,7 +333,7 @@
 
         .moment-content {
             width: 45%;
-            padding: 30px;
+            padding: 40px;
         }
 
         .moment:nth-child(even) .moment-content {
@@ -269,25 +341,32 @@
         }
 
         .moment-date {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            color: var(--soft-red);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
         }
 
         .moment-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--dark-brown);
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
         }
 
         .moment-description {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.8;
-            color: var(--dark-brown);
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
         /* Photo Frame */
@@ -297,20 +376,44 @@
         }
 
         .polaroid {
-            background: white;
-            padding: 15px 15px 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transform: rotate(2deg);
-            transition: transform 0.3s ease;
+            background: var(--dark-elevated);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transform: rotate(1deg);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .moment:nth-child(even) .polaroid {
-            transform: rotate(-2deg);
+            transform: rotate(-1deg);
         }
 
         .polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            transform: rotate(0deg) translateY(-8px);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 107, 157, 0.2);
+        }
+
+        .polaroid:hover::before {
+            opacity: 0.05;
         }
 
         .polaroid img {
@@ -318,55 +421,80 @@
             aspect-ratio: 4/3;
             object-fit: cover;
             display: block;
-            background: var(--sepia);
+            background: var(--dark-surface);
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
         }
 
         .polaroid-caption {
             text-align: center;
-            margin-top: 15px;
-            font-family: 'Crimson Pro', serif;
+            margin-top: 16px;
+            font-family: 'DM Sans', sans-serif;
             font-size: 0.9rem;
-            color: var(--dark-brown);
+            color: var(--text-secondary);
             font-style: italic;
+            position: relative;
+            z-index: 1;
         }
 
         /* Timeline Dot */
         .timeline-dot {
             position: absolute;
             left: 50%;
-            top: 40px;
-            width: 20px;
-            height: 20px;
-            background: var(--gold);
-            border: 3px solid var(--cream);
+            top: 50px;
+            width: 16px;
+            height: 16px;
+            background: var(--gradient-primary);
+            border: 3px solid var(--dark);
             border-radius: 50%;
             transform: translateX(-50%);
             z-index: 2;
-            box-shadow: 0 0 0 3px var(--gold);
+            box-shadow: 
+                0 0 0 4px rgba(255, 107, 157, 0.2),
+                0 4px 12px rgba(255, 107, 157, 0.4);
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--sepia);
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, transparent, var(--dark-surface));
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 1px;
+            background: var(--gradient-primary);
         }
 
         .footer p {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 2rem;
-            color: var(--dark-brown);
-            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .footer small {
             font-size: 1rem;
-            color: var(--dark-brown);
-            opacity: 0.7;
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .landing-content {
+                padding: 40px 30px;
+            }
+
             .landing-content h1 {
                 font-size: 2.5rem;
             }
@@ -383,6 +511,10 @@
                 font-size: 3rem;
             }
 
+            .header p {
+                font-size: 1.1rem;
+            }
+
             .timeline::before {
                 left: 30px;
             }
@@ -390,11 +522,16 @@
             .moment {
                 flex-direction: column !important;
                 padding-left: 60px;
+                margin-bottom: 60px;
             }
 
             .moment-content,
             .moment-photo {
                 width: 100%;
+            }
+
+            .moment-content {
+                padding: 20px 0;
             }
 
             .moment:nth-child(even) .moment-content {
@@ -403,6 +540,10 @@
 
             .timeline-dot {
                 left: 30px;
+            }
+
+            .moment-title {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -413,7 +554,7 @@
 
     <!-- Floating Hearts -->
     <div id="hearts-container"></div>
-
+    
     <!-- Landing Page -->
     <div id="landing-page">
         <div class="landing-content">
@@ -451,7 +592,7 @@
                 </div>
                 <div class="moment-photo">
                     <div class="polaroid">
-                        <img src="https://via.placeholder.com/600x450/e8dcc8/3d3228?text=First+Photo" alt="First moment">
+                        <img src="https://via.placeholder.com/600x450/1c1c24/ff6b9d?text=First+Photo" alt="First moment">
                         <div class="polaroid-caption">Where it all began</div>
                     </div>
                 </div>
@@ -471,7 +612,7 @@
                 </div>
                 <div class="moment-photo">
                     <div class="polaroid">
-                        <img src="https://via.placeholder.com/600x450/e8dcc8/3d3228?text=Adventure" alt="Adventure">
+                        <img src="https://via.placeholder.com/600x450/1c1c24/ff6b9d?text=Adventure" alt="Adventure">
                         <div class="polaroid-caption">Lost but together</div>
                     </div>
                 </div>
@@ -491,7 +632,7 @@
                 </div>
                 <div class="moment-photo">
                     <div class="polaroid">
-                        <img src="https://via.placeholder.com/600x450/e8dcc8/3d3228?text=Stargazing" alt="Stargazing">
+                        <img src="https://via.placeholder.com/600x450/1c1c24/ff6b9d?text=Stargazing" alt="Stargazing">
                         <div class="polaroid-caption">You're my universe</div>
                     </div>
                 </div>
@@ -511,7 +652,7 @@
                 </div>
                 <div class="moment-photo">
                     <div class="polaroid">
-                        <img src="https://via.placeholder.com/600x450/e8dcc8/3d3228?text=Rainy+Day" alt="Rain">
+                        <img src="https://via.placeholder.com/600x450/1c1c24/ff6b9d?text=Rainy+Day" alt="Rain">
                         <div class="polaroid-caption">Dancing in the storm</div>
                     </div>
                 </div>
@@ -531,7 +672,7 @@
                 </div>
                 <div class="moment-photo">
                     <div class="polaroid">
-                        <img src="https://via.placeholder.com/600x450/e8dcc8/3d3228?text=New+Year" alt="New Year">
+                        <img src="https://via.placeholder.com/600x450/1c1c24/ff6b9d?text=New+Year" alt="New Year">
                         <div class="polaroid-caption">Forever starts now</div>
                     </div>
                 </div>
