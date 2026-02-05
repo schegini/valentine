@@ -559,11 +559,11 @@
     <div id="landing-page">
         <div class="landing-content">
             <h1>Babygurrrlllll</h1>
-            <p>I have one important question to ask you...</p>
+            <p>I know I already asked you this, but this is an extremely important question...</p>
             <h1 style="font-size: 3rem; margin: 30px 0;">Will you be my Valentine?</h1>
             <div class="button-group">
                 <button class="valentine-btn yes" onclick="acceptValentine()">OF COURSE baby!</button>
-                <button class="valentine-btn no" onclick="rejectValentine()">I hate you</button>
+                <button class="valentine-btn no" onclick="rejectValentine()">No because I hate you</button>
             </div>
         </div>
     </div>
@@ -766,11 +766,17 @@
                     // Change message based on attempts
                     const landingP = document.querySelector('.landing-content > p');
                     if (attempts === 20) {
+                        landingP.innerHTML = 'HAHAHAHA THAT AINT GON WORK'
+                    } else if (attempts === 80) {
                         landingP.innerHTML = 'What the sigma bruh...';
-                    } else if (attempts === 40) {
+                    } else if (attempts === 120) {
                         landingP.innerHTML = 'Really bruh?';
-                    } else if (attempts === 60) {
+                    } else if (attempts === 160) {
                         landingP.innerHTML = 'I thought you were my Roblox gf...';
+                    } else if (attempts === 200) {
+                        landingP.innerHTML = 'Why do you not want to be my Valentine?';
+                    } else if (attempts === 240) {
+                        landingP.innerHTML = 'Fine...I am sad now...'
                     }
                 }
             }
@@ -781,7 +787,7 @@
             // This is now just a backup if they manage to click it
             attempts += 2;
             const landingP = document.querySelector('.landing-content > p');
-            landingP.innerHTML = 'Not allowed.';
+            landingP.innerHTML = 'Uhh I dont think thats allowed.';
         }
     </script>
 </body>
