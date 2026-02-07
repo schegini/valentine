@@ -1,4 +1,4 @@
-# Valentine's Day!
+# Happy Valentine's Day!
 
 Please head to: https://schegini.github.io/valentine/
 
